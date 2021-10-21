@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+ 
+
+ 
+ 
+ <!-- This will show the tree views in the main page of Properties-->  
+    <record id="properties_tree" model="ir.ui.view">
+        <field name="name">properties.tree</field>
+        <field name="model">real.estate</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="title"/>
+                <!-- <field name="description"/> -->
+                <field name="owner_info"/>
+                
+                
+                <!-- <field name="customer_info"/> -->
+                <field name="surgeprice"/>
+                <field name="expected_price"/>
+                <field name="avaiable_from"/>
+                <field name="property_image" widget = "image"/>
+                
+                <field name="status"/>
+                
+                    
+                
+                
+            </tree>
+        </field>
+    </record>
+
+<!-- This will show the tree views in the main page of Owners-->  
+    <record id="owners_tree" model="ir.ui.view">
+        <field name="name">owners.tree</field>
+        <field name="model">real.owner</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="company"/>
+                <field name="address"/>
+                <field name="properties_name"/>
+                <!-- <field name="profile_image" widget = "image"/> -->
+                <!-- <field name="owner_id"/> -->
+                
+            </tree>
+        </field>
+    </record>  
+
+<!-- This creates the form and group view For Properties -->  
+    <record id="properties_form_srijon" model="ir.ui.view">
+        <field name="name">properties.form</field>
+        <field name="model">real.estate</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="title"/>
+                            <field name="description"/>
+                            <field name="pp_address"/>
+                            <field name="surgeprice"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                           <field name="expected_price"/>
+                           <field name="avaiable_from"/>
+                           <field name="status"/>
+                           <field name="newid"/>
+                        </group>
+                        <group>
+                         <!-- <field name="seller_signature" widget="signature"/>  -->
+                         <field name="property_image" widget = "image"/>
+                         <field name='owner_info'/>
+                        </group>
+                        
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+<!-- This creates the form and group view For Owners-->
+    <record id="owners_form_srijon" model="ir.ui.view">
+        <field name="name">owners.form</field>
+        <field name="model">real.owner</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="company"/>
+                            
+                            <field name="owner_id"/>
+                        </group>
+                        <group>
+                           <field name="address"/>
+                           <field name="phone"/>
+                           <field name="email_address"/>
+                        </group>
+                        <group>
+                         <field name="owner_signature" widget="signature"/> 
+                         <field name="profile_image" widget = "image"/>
+                        </group>
+                      
+                    </group>
+                    <notebook>
+                        <page string="Owning Properties Info">
+                            <field name="properties_name"/>
+                                
+                            
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+<!-- This creates the action perameters For Properties-->  
+    
+    <record id="properties_action_srijon" model="ir.actions.act_window">
+        <field name="name">Properties</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">real.estate</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create Your Property Listing
+            </p>
+        </field>
+    </record>
+
+
+<!-- This creates the action perameters For Owners --> 
+    <record id="owners_action_srijon" model="ir.actions.act_window">
+        <field name="name">Owners</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">real.owner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Register as a Owner 
+            </p>
+        </field>
+    </record>
+
+    
+<!-- This creates the Search Option For Properties --> 
+    
+
+
+    <record id="properties_search" model="ir.ui.view">
+        <field name="name">real.estate.search</field>
+        <field name="model">real.estate</field>
+        <field name="arch" type="xml">
+            <search string="properties">
+             <field name="title"/>
+             <field name="description"/>
+             <field name="expected_price"/>
+             <field name="avaiable_from"/>
+             <field name="status"/>
+             <separator/>
+             <separator />
+                <filter string="Available" name="available" domain="[('status', '=', 'available')]"/>
+                <filter string="Unavailable" name="unavailable" domain="[('status', '=', 'unavailabe')]"/>  
+                <group expand="0" string="Group By">
+                    <filter string="Price" name="expected_price" context="{'group_by':'expected_price'}"/>
+                </group>
+                
+            </search>
+        </field>
+    </record>
+
+
+<!-- This creates the Kanban View For Properties -->
+
+    <record id="view_realestate_kanban" model="ir.ui.view">
+        <field name="name">real.estate.kanban</field>
+        <field name="model">real.estate</field>
+        <field name="arch" type="xml">
+            <kanban default_order="title">
+                <field name="title"/>
+                <field name="description"/>                              
+                <field name="expected_price"/>              
+                <field name="avaiable_from"/>              
+                <field name="status"/>
+                <!-- <field name="property_image" widget = "image"/> -->
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li>
+                                        Title: <field name="title"/>
+                                    </li>
+                                    <li>
+                                        Description: <field name="description"/> 
+                                    </li>
+                                    <li>
+                                        Status: <field name="status"/>
+                                    </li>
+                                    <li>
+                                        Price: <field name="expected_price"/> 
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+ <!-- This will show the tree views in the main page of Agents-->  
+
+    <record id="srijon_tree_agent" model="ir.ui.view">
+        <field name="name">agents.tree</field>
+        <field name="model">estate.agent</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="agentname"/>
+                <field name="agent_id"/>
+                <field name="agentcompany"/>
+                <field name="agentaddress"/>
+                <field name="agentphone"/>
+                <!-- <field name="agentemail_address"/> -->
+                
+            </tree>
+        </field>
+    </record>  
+
+<!-- This will show the tree views in the main page of Customers (need to add subtotal field)-->  
+
+    <record id="customers_tree_agent" model="ir.ui.view">
+        <field name="name">customers.tree</field>
+        <field name="model">problem.srijon</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="trader"/>
+                <field name="customerprofile_image"/>
+                <field name="buy_property"/>
+                <!-- <field name="related_owner"/> -->
+                <!-- <field name="total"/> -->
+                <!-- <field name="agentemail_address"/> -->
+                
+            </tree>
+        </field>
+    </record>  
+
+
+<!-- This creates the form and group view For Agents-->  
+    <record id="agents_form_srijon" model="ir.ui.view">
+        <field name="name">agents.form</field>
+        <field name="model">estate.agent</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="agentname"/>
+                            <field name="agentcompany"/>
+                            
+                        </group>
+                        <group>
+                           <field name="agentaddress"/>
+                           <field name="agentphone"/>
+                           <field name="agentemail_address"/>
+                           <!-- <field name="agent_id"/> -->
+                        </group>
+                        <notebook>
+                          <page string="Maintaining Properties">
+                             <field name="agent_id"/>
+                                
+                            
+                            </page>
+                        </notebook>
+                        
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+<!-- This creates the form and group view For Customer (need to add subtotal field)-->  
+    <record id="customer_form_srijon" model="ir.ui.view">
+        <field name="name">customers.form</field>
+        <field name="model">problem.srijon</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="trader"/>
+                            <field name="customerprofile_image"/>
+                            <!-- <field name="total"/> -->
+                            <field name="related_owner"/>
+                        </group>
+                        <notebook>
+                          <page string="Ordered Properties">
+                             <field name="buy_property"/>
+                                
+                            
+                            </page>
+                        </notebook>
+                        
+                        
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+<!-- This creates the action perameters For Agents-->  
+    
+    <record id="agents_action_srijon" model="ir.actions.act_window">
+        <field name="name">Agents</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">estate.agent</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create Your Agent Listing
+            </p>
+        </field>
+    </record>
+    
+<!-- This creates the action perameters For Customer-->  
+    
+    <record id="customers_action_srijon" model="ir.actions.act_window">
+        <field name="name">Customer</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">problem.srijon</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create Your Agent Customer
+            </p>
+        </field>
+    </record>
+    
+
+
+<!-- mapview--> 
+
+    
+    <!-- <record id="view_project_tasks_map" model="ir.ui.view">
+        <field name="name">pproperties.data map</field>
+        <field name="model">real.estate</field>
+        <field name="arch" type="xml">
+         <map res_partner="partner_id">
+              
+         </map>
+        </field>
+    </record> -->
+
+
+
+
+    
+<!-- The menu items that  wil get represented (need to work on inheritance)-->  
+    <menuitem id="realestate_srijon"
+            name="Srijon RealEstate"/>
+
+    
+
+    <menuitem id="property_listing"
+        name="Properties"
+        parent="realestate_srijon"
+        action="properties_action_srijon"/>
+
+    <menuitem id="owner_listing"
+        name="Owner"
+        parent="realestate_srijon"
+        action="owners_action_srijon"/>
+    
+    <menuitem id="agent_listing"
+        name="Agent"
+        parent="realestate_srijon"
+        action="agents_action_srijon"/>
+      
+    <menuitem id="customer_listing"
+        name="Customer"
+        parent="realestate_srijon"
+        action="customers_action_srijon"/>
+    
+    <menuitem
+        id="menu_hr_root"
+        name="Employees"
+        action="hr.open_view_employee_list_my"
+        parent="realestate_srijon"/>
+
+    <!-- <record id="hr.menu_hr_root" model="ir.ui.menu">
+        <field name="name">Employee</field>
+        
+                    
+                
+                
+            
+        
+    </record> -->
+    
+</odoo>
