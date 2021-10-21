@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <report
+     id = "report_property_list"
+     string = "Property list"
+     model = "real.estate"
+     report_type = "qweb-pdf"
+     name = "mini_project_01.report_property"
+     file = "mini_project_01.report_property"/>
+</odoo>
